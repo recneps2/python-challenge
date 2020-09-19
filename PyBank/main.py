@@ -33,7 +33,6 @@ for i in range(len(date)):
     momPLcng.append(int(prevMpl[i]) - int(curMpl[i]))
 momPLcng.pop()
 
-
 totmonths = len(date) #total number of records, excluding headers
 totalpl = sum(curMpl) #sum of total profit and llosses
 totalmomplcng = sum(momPLcng) #sum of total month over month changes in profit and losses
