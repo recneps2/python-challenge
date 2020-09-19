@@ -37,7 +37,7 @@ print(momPLcng)
 totmonths = len(date) #total number of records, excluding headers
 totalpl = sum(curMpl) #sum of total profit and llosses
 totalmomplcng = sum(momPLcng) #sum of total month over month changes in profit and losses
-avemomplcng = round(totalmomplcng/(totmonths-1),2) #average month over month change of profit and losses
+avemomplcng = round(totalmomplcng/len(momPLcng),2) #average month over month change of profit and losses
 maxval = max(momPLcng) #value of greatest increase in profit and losses
 maxvalindex = momPLcng.index(maxval) #index of greatest increase in profit and losses
 maxvaldate = date[maxvalindex] #date of the greatest increase in profit and losses
