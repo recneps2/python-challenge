@@ -2,46 +2,14 @@ import os
 import csv
 
 data_file = os.path.join('Resources', 'budget_data.csv')
-#print('Financial Analysis')
-#print('--------------------------------')
 
-"""with open(data_file, 'r') as csv_file:
-    reader = csv.reader(csv_file, delimiter=',')
-    header = next(reader)
-    print(header)
-    firstMrow = next(reader)
-    #secondMrow = next(reader)
-    #print(firstMrow)
-    #print(secondMrow)
-    all = []
-    header.append('Chng from Prev Month')
-    all.append(firstMrow)
-    print(header)
-    #curMpl = int(row[2])
-    #print(curMpl)
-    #nxtMpl = int(first_row[1])
-   
-    for row in reader:
-        #print(row[1])
-        row.append(row[1])
-        all.append(row)
-        print(row[2])"""
-    
-"""months = 0
-for row in reader
-    months ="""
+#defining veriables
+date = [] #column 1, date of pl
+curMpl = [] #column 2, p/l of listed month
+prevMpl = [] #new list, previous month's p/l, needed to get month over month change
+momPLcng = [] #new list, month over month change for each line item
 
-    #2.3 activity udemy
-    #2.4 wrestling activity
-    #2.3 house of py
-
-    #stat w total months, count
-#lists to store data
-date = []
-curMpl = []
-prevMpl = []
-momPLcng = []
-
+#open/read csv and add content to lists
 with open(data_file, 'r') as csv_file:
     reader = csv.reader(csv_file, delimiter=',')
     header = next(reader)
@@ -52,32 +20,30 @@ with open(data_file, 'r') as csv_file:
          #add current month
          curMpl.append(int(row[1]))
 
-         #add prev month
+         #add additional current month list to use as "previous month's PL"
          prevMpl.append(int(row[1]))
 
-#print(date)
-#print(curMpl)
-
+#removing the first value from the list of previous month pl valuse
 prevMpl.pop(0)
+#adding a 0 to the end of the list to make it the same length as the other lists
 prevMpl.append(0)
-#print(prevMpl)
 
+#addting content to list of month over month changes
 for i in range(len(date)):
     momPLcng.append(int(prevMpl[i]) - (curMpl[i]))
-#print(momPLcng)
-#print(len(date))
 
-totmonths = len(date)
-totalpl = sum(curMpl)
-avemomplcng = sum(momPLcng)/totmonths
-maxval = max(momPLcng)
-maxvalindex = momPLcng.index(maxval)
-maxvaldate = date[maxvalindex]
+totmonths = len(date) #total number of records, excluding headers
+totalpl = sum(curMpl) #sum of total profit/losses
+totalmomplcng = sum(momPLcng) #sum of total month over month changes in profit and losses
+avemomplcng = totalmomplcng/totmonths #average month over month change of profit and losses
+maxval = max(momPLcng) #value of greatest increase in profit and losses
+maxvalindex = momPLcng.index(maxval) #index of greatest increase in profit and losses
+maxvaldate = date[maxvalindex] #date of the greatest increase in profit and losses
+minval = min(momPLcng) #value of greatest decrease in profit and losses
+minvalindex = momPLcng.index(minval) #index of greatest decrease in profit and losses
+minvaldate = date[minvalindex] #date of the greatest decrease in profit and losses
 
-minval = min(momPLcng)
-minvalindex = momPLcng.index(minval)
-minvaldate = date[minvalindex]
-
+#printing to terminal
 print('Financial Analysis')
 print('--------------------------------')
 print(f'Total Months: {totmonths}')
@@ -86,6 +52,7 @@ print(f'Average Change: ${avemomplcng}')
 print(f'Greatest Increase in Profits: {maxvaldate} ${maxval}')
 print(f'Greatest deacrease in Profits: {minvaldate} ${minval}')
 
+#writing to txt file
 txtfile = open('PyBankoutput.txt', 'w+')
 txtfile.write('Financial Analysis\n')
 txtfile.write('--------------------------------\n')
